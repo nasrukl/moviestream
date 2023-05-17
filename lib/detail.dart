@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moviestream/model/trending_movie.dart';
+import 'package:moviestream/services/api_services.dart';
+
+import 'model/credits_model.dart';
 
 class Details extends StatefulWidget {
   final Result result;
@@ -83,15 +86,18 @@ class _DetailsState extends State<Details> {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20, top: 39),
                   child: SizedBox(
                       height: 60,
-                      child: Center(
+                      width: 270,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
                         child: Text(
                           "${result.originalTitle}",
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 17),
                         ),
@@ -230,17 +236,28 @@ class _DetailsState extends State<Details> {
                         fontSize: 22,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 110,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => TopCastItem(
-                        index: index,
-                        topcast: Topcastlist[index],
-                      ),
-                      itemCount: Topcastlist.length,
-                    ),
-                  ),
+                  FutureBuilder(
+                      future: ApiServices().getCreditsofMoviebyId(result.id!),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          Credits data = snapshot.data!;
+                          return SizedBox(
+                            height: 120,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => TopCastItem(
+                                index: index,
+                                topcast: data.cast[index],
+                              ),
+                              itemCount: data.cast.length,
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      }),
                 ],
               ),
             ),
@@ -251,8 +268,10 @@ class _DetailsState extends State<Details> {
   }
 }
 
+final String imgMedium = "http://image.tmdb.org/t/p/w780";
+
 class TopCastItem extends StatelessWidget {
-  final Topcast topcast;
+  final Cast topcast;
   final int index;
   const TopCastItem({
     super.key,
@@ -267,21 +286,34 @@ class TopCastItem extends StatelessWidget {
       width: 100,
       // color: Colors.white30,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage('${topcast.image}'),
-            radius: 27,
-          ),
+          topcast.profilePath == null
+              ? CircleAvatar(
+                  backgroundColor: Colors.grey[400],
+                  child: Icon(
+                    Icons.person_3,
+                    color: Colors.black,
+                    size: 35,
+                  ),
+                )
+              : CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(imgMedium + topcast.profilePath!),
+                  radius: 27,
+                ),
           Text(
             '${topcast.name}',
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Color.fromARGB(201, 255, 255, 255),
               fontSize: 14,
             ),
           ),
           Text(
-            '${topcast.charactor}',
+            '${topcast.character}',
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Color.fromARGB(201, 255, 255, 255),
               fontSize: 12,
