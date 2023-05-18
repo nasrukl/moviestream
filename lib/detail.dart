@@ -96,7 +96,7 @@ class _DetailsState extends State<Details> {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          "${result.originalTitle}",
+                          "${result.originalTitle ?? result.name}",
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 17),
@@ -268,7 +268,7 @@ class _DetailsState extends State<Details> {
   }
 }
 
-final String imgMedium = "http://image.tmdb.org/t/p/w780";
+const String imgMedium = "http://image.tmdb.org/t/p/w780";
 
 class TopCastItem extends StatelessWidget {
   final Cast topcast;
@@ -291,7 +291,7 @@ class TopCastItem extends StatelessWidget {
           topcast.profilePath == null
               ? CircleAvatar(
                   backgroundColor: Colors.grey[400],
-                  child: Icon(
+                  child: const Icon(
                     Icons.person_3,
                     color: Colors.black,
                     size: 35,
@@ -303,7 +303,7 @@ class TopCastItem extends StatelessWidget {
                   radius: 27,
                 ),
           Text(
-            '${topcast.name}',
+            topcast.name,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Color.fromARGB(201, 255, 255, 255),

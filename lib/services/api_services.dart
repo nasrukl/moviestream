@@ -72,4 +72,19 @@ class ApiServices {
     }
     return null;
   }
+
+  Future<Credits?> getCreditsofTvbyId(int id) async {
+    try {
+      Response response = await _dio.get('/tv/$id/credits');
+
+      log('popular movie ${response.statusCode.toString()}');
+      if (response.statusCode == 200) {
+        String jsonRespose = json.encode(response.data);
+        return creditsFromJson(jsonRespose);
+      }
+    } on DioError catch (e) {
+      print('Error occured at getTrendingMovies : $e');
+    }
+    return null;
+  }
 }

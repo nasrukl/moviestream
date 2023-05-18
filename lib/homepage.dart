@@ -244,16 +244,25 @@ class _HomePageState extends State<HomePage> {
                             itemCount: myData.results.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: 150,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.teal,
-                                  image: DecorationImage(
-                                    image: NetworkImage(imgMedium +
-                                        myData.results[index].posterPath!),
-                                    fit: BoxFit.cover,
+                              return GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Details(
+                                      result: myData.results[index],
+                                    ),
+                                  ),
+                                ),
+                                child: Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.teal,
+                                    image: DecorationImage(
+                                      image: NetworkImage(imgMedium +
+                                          myData.results[index].posterPath!),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               );
@@ -302,18 +311,26 @@ class _HomePageState extends State<HomePage> {
                             itemCount: myData2.results.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: 150,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.teal,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      imgMedium +
-                                          myData2.results[index].posterPath!,
+                              return GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Details(result: myData2.results[index]),
+                                  ),
+                                ),
+                                child: Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.teal,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        imgMedium +
+                                            myData2.results[index].posterPath!,
+                                      ),
+                                      fit: BoxFit.cover,
                                     ),
-                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               );
@@ -362,18 +379,27 @@ class _HomePageState extends State<HomePage> {
                             itemCount: myData3.results.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return Container(
-                                width: 150,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.teal,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      imgMedium +
-                                          myData3.results[index].posterPath!,
+                              return GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Details(
+                                      result: myData3.results[index],
                                     ),
-                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: Colors.teal,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        imgMedium +
+                                            myData3.results[index].posterPath!,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               );

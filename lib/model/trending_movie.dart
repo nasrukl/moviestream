@@ -45,6 +45,7 @@ class Result {
   String? backdropPath;
   int? id;
   String? title;
+  String? name;
   String? originalLanguage;
   String? originalTitle;
   String? overview;
@@ -62,6 +63,7 @@ class Result {
     this.backdropPath,
     this.id,
     this.title,
+    this.name,
     this.originalLanguage,
     this.originalTitle,
     this.overview,
@@ -80,6 +82,7 @@ class Result {
         backdropPath: json["backdrop_path"],
         id: json["id"],
         title: json["title"],
+        name: json["name"],
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
